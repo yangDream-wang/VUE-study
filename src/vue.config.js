@@ -27,6 +27,7 @@ module.exports = {
       // },
     }
   },
+  
   lintOnSave: true,
   chainWebpack: (config) => {
     config.resolve.alias
