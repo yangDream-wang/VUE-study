@@ -18,6 +18,7 @@ module.exports = {
     },
     devServer: {
       disableHostCheck: true,
+      
       // proxy: {
       // 'https://api.mtnhao.com/': {
       //         target: 'http://localhost:8080',
@@ -27,7 +28,7 @@ module.exports = {
       // },
     }
   },
-  
+
   lintOnSave: true,
   chainWebpack: (config) => {
     config.resolve.alias
