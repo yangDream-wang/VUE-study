@@ -5,6 +5,9 @@
     <input type="button" value="+" @click="IncNum">
     <input type="button" value="-" @click="DecNum">
     <input type="button" value="promise+" @click="actionIncNum">
+    <div v-for="(item,index) in bannerdata" :key="item.id">
+      {{index}}:{{item.title}}
+    </div>
   </div>
 </template>
 
@@ -19,7 +22,7 @@ export default {
   data() {
   //这里存放数据
     return {
-
+      bannerdata:[],
     };
   },
   //监听属性 类似于data概念
@@ -42,12 +45,11 @@ export default {
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
-    request({
-      url:'',
-      data:{},
-    }).then((res)=>{
-      
-    }).catch((err)=>{})
+    this.$request({
+      url: '/home/multidata',
+    }).then((res) => {
+      this.bannerdata =res.data.banner.list
+    })
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {

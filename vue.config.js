@@ -16,19 +16,38 @@ module.exports = {
         "public": '@/public',
       }
     },
-    devServer: {
-      disableHostCheck: true,
-      
-      // proxy: {
-      // 'https://api.mtnhao.com/': {
-      //         target: 'http://localhost:8080',
-      //         changeOrigin: true,
-      //         secure: false,
-      //     },
-      // },
+    
+  },
+  devServer: {
+    hotOnly: false, 
+    open: true, //自动从浏览器打开应用 
+    proxy: { 
+      '/api':{ 
+        target: 'http://123.207.32.32:8000',
+        changeOrigin: true, 
+        pathRewrite: {
+          '^/api':''
+        } 
+      } 
     }
   },
-
+  // devServer: {
+  //   // disableHostCheck: true,
+  //   devServer: {
+  //     port: '8080',
+  //     host: 'localhost',
+  //     open: true,
+  //     proxy: {
+  //       "/api": {
+  //         target: "http://123.207.32.32:8000",
+  //         changeOrigin: true,
+  //         pathRewrite: {
+  //           "^/api": ""
+  //         }
+  //       }
+  //     }
+  //   }
+  // },
   lintOnSave: true,
   chainWebpack: (config) => {
     config.resolve.alias
