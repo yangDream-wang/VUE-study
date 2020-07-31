@@ -75,6 +75,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
 }
 .goodsbottom-title{
   padding: 1em;

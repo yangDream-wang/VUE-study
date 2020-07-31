@@ -2,7 +2,7 @@
 <template>
   <div id="home" class="home">
     <navbar class="navbar"><div slot="center">首页</div></navbar>
-    <scroll ref="wrapper" class="wrapper" :data="recommendData[comTabIndex].list" :probeType="3" :listenScroll="true" @scroll="listenScroll" :pullup="true" @scrollToEnd="scrollToEnd" :pulldown="true" @pulldown="pulldown">
+    <scroll ref="wrapper" class="wrapper" :data="recommendData[comTabIndex].list" :probeType="3" :toTop="true" :listenScroll="true" @scroll="listenScroll" :pullUpDown="true" @pullUp="pullUp" @pullDown="pullDown" @scrollToElement="scrollToElement">
       <home-swiper :bannerList="bannerList"></home-swiper>
       <tab-controller class="tab-controller" :titles="['推荐歌单','推荐MV','推荐新音乐']" @tabchange="tabchange"></tab-controller>
       <div class="goodsCom"><goods :data="recommendData[comTabIndex].list"></goods></div>
@@ -60,22 +60,30 @@ export default {
   },
   //方法集合
   methods: {
+    scrollToElement(){
+      console.log(`到达指定地方`);
+      this.$refs.wrapper.scrollToElement(this.$refs.tab,200)
+    },
     /**监听滚动位置 */
     listenScroll(e){
       // console.log(e);
     },
     /**加载更多 */
-    scrollToEnd(){
-      console.log('加载更多');
-      this.$refs.wrapper.refresh(()=>{
-        alert('加载更多')
-      })
-      
+    pullUp(){
+      this.$refs.wrapper.pullupstatus(2)
+      setTimeout(() => {
+        this.$refs.wrapper.pullupstatus(1)
+        console.log(`上拉加载`);
+      }, 2000);
     },
     /**下拉刷新 */
-    pulldown(e){
-      alert('下拉刷新')
-      console.log('下拉刷新'.e);
+    pullDown(e){
+      setTimeout(() => {
+        this.$refs.wrapper.pulldownstatus(2)
+        setTimeout(() => {
+          this.$refs.wrapper.pulldownstatus(1)
+        }, 2000);
+      }, 2000);
     },
     IncNum() {
       this.$store.commit("incNum");
@@ -153,7 +161,6 @@ export default {
 }
 .wrapper{
   height: calc(100vh - 93px);
-  border: 1px solid red;
 }
 .tab-controller {
   position: sticky;
@@ -162,6 +169,6 @@ export default {
 }
 .goodsCom{
   width:100%;
-  /* border: 1px solid red; */
 }
+
 </style>
