@@ -31,9 +31,19 @@ import tabbar from "components/common/tabbar/tabbar";
 import tabbaritem from "components/common/tabbar/tabbaritem";
 export default {
   name: 'App',
-  components: { tabbar,tabbaritem }
+  components: { tabbar,tabbaritem },
+  // mounted(){
+  //   document.body.addEventListener(
+  //     'touchmove',
+  //     function (e) {
+  //       e.preventDefault()
+  //     },
+  //     { passive: false }
+  //   )
+  // }
 }
 </script>
+
 
 <style>
   @import url('assets/css/base.css');

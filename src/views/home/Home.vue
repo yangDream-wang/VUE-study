@@ -1,21 +1,22 @@
 <!--  -->
 <template>
   <div id="home" class="home">
-    <navbar class="navbar">
-      <div slot="center">首页</div>
-    </navbar>
-    <home-swiper :bannerList="bannerList"></home-swiper>
-    <tab-controller class="tab-controller" :titles="['推荐歌单','推荐MV','推荐新音乐']"></tab-controller>
-    <div class="goodsCom"><goods :data="recommendData.song.list"></goods></div>
+    <navbar class="navbar"><div slot="center">首页</div></navbar>
+    <scroll ref="wrapper" class="wrapper" :data="recommendData[comTabIndex].list" :probeType="3" :listenScroll="true" @scroll="listenScroll" :pullup="true" @scrollToEnd="scrollToEnd" :pulldown="true" @pulldown="pulldown">
+      <home-swiper :bannerList="bannerList"></home-swiper>
+      <tab-controller class="tab-controller" :titles="['推荐歌单','推荐MV','推荐新音乐']" @tabchange="tabchange"></tab-controller>
+      <div class="goodsCom"><goods :data="recommendData[comTabIndex].list"></goods></div>
+    </scroll>
   </div>
 </template>
 
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
-//例如：import 《组件名称》 from '《组件路径》';
-import navbar from "components/common/navbar/NavBar";
-import TabController from "../../components/content/tabController/TabController";
+//例如：import 《组件名称》 from '《组件路径》'
+import navbar from "components/common/navbar/NavBar"
+import TabController from "../../components/content/tabController/TabController"
 import Goods from '../../components/content/goods/Goods'
+import scroll from '../../components/common/better-scroll/BetterScroll'
 
 import HomeSwiper from "./homeComs/HomeSwiper";
 
@@ -28,7 +29,7 @@ import {
 export default {
   name: "home",
   //import引入的组件需要注入到对象中才能使用
-  components: { navbar, HomeSwiper, TabController,Goods },
+  components: { navbar, HomeSwiper, TabController,Goods,scroll },
   data() {
     //这里存放数据
     return {
@@ -38,14 +39,44 @@ export default {
         mv: { page: 1, list: [] },
         new: { page: 1, list: [] },
       },
+      tabIndex:0,
     };
   },
   //监听属性 类似于data概念
-  computed: {},
+  computed: {
+    comTabIndex(){
+      if(this.tabIndex == 0){
+        return 'song'
+      }else if(this.tabIndex == 1){
+        return 'mv'
+      }else if(this.tabIndex == 2){
+        return 'new'
+      }
+    },
+  },
   //监控data中的数据变化
-  watch: {},
+  watch: {
+    
+  },
   //方法集合
   methods: {
+    /**监听滚动位置 */
+    listenScroll(e){
+      // console.log(e);
+    },
+    /**加载更多 */
+    scrollToEnd(){
+      console.log('加载更多');
+      this.$refs.wrapper.refresh(()=>{
+        alert('加载更多')
+      })
+      
+    },
+    /**下拉刷新 */
+    pulldown(e){
+      alert('下拉刷新')
+      console.log('下拉刷新'.e);
+    },
     IncNum() {
       this.$store.commit("incNum");
     },
@@ -54,6 +85,10 @@ export default {
     },
     actionIncNum() {
       this.$store.dispatch("testaction", 1111).then((res) => {});
+    },
+    /**点击切换tab导航 */
+    tabchange(e){
+      this.tabIndex = e
     },
     /**获取推荐歌单 */
     getRecommendSongSheet(data, fn) {
@@ -115,6 +150,10 @@ export default {
   position: sticky;
   top: 0;
   z-index: 2;
+}
+.wrapper{
+  height: calc(100vh - 93px);
+  border: 1px solid red;
 }
 .tab-controller {
   position: sticky;

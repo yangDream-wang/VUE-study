@@ -21,9 +21,9 @@ export default {
   components: {GoodsItem},
   props:{/**接受父组件传值*/ 
     data:{
-      type:Object,
+      type:Array,
       default(){
-        return {}
+        return []
       }
     }
   },

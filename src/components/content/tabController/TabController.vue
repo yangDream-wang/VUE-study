@@ -27,6 +27,7 @@ export default {
   methods:{
     tabClick(index){
       this.clickindex = index
+      this.$emit('tabchange',index)
     },
   },
 }
