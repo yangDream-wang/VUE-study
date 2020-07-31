@@ -56,4 +56,7 @@ export default {
   width: 13vw;
   height: 13vw;
 }
+.gototop img{
+  box-shadow: 0 3px 8px 0 rgba(0,0,0,.08);
+}
 </style>

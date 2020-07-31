@@ -441,7 +441,7 @@ export default {
 }
 .pullup{
   width: 100%;
-  padding:5px 0;
+  padding:10px 0;
   text-align: center;
   font-size: 15px;
 }
