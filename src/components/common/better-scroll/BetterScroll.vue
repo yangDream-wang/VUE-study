@@ -211,6 +211,7 @@ export default {
   },
   methods: {
     _initScroll() {
+      console.log(`进去_initScroll`);
       if (!this.$refs.wrapper) { return; }
       // better-scroll的初始化
       this.scroll = new BScroll(this.$refs.wrapper, {
@@ -227,18 +228,7 @@ export default {
         const me = this;
         this.scroll.on("scroll", (pos) => {
           me.$emit("scroll", pos);
-          if(this.toTop){
-            if(-pos.y > 900){
-              if(this.toTopStatus){return;}
-              console.log(pos);
-              this.toTopStatus = true
-            }else{
-              if(!this.toTopStatus){return;}
-              console.log(`不足300`,pos);
-              this.toTopStatus = false
-            }
-          }
-          if (this.pulldown) {
+          if (this.pullUpDown) {
             if (pos.y > 50) {
               this.pulldownTip = {
                 text: "松开立即刷新",
@@ -249,6 +239,17 @@ export default {
                 text: "下拉刷新", // 松开立即刷新
                 rotate: "", // icon-rotate
               };
+            }
+          }
+          if(this.toTop){
+            if(-pos.y > 900){
+              if(!this.toTopStatus){
+                this.toTopStatus = true
+              }
+            }else{
+              if(this.toTopStatus){
+                this.toTopStatus = false
+              }
             }
           }
         });

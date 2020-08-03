@@ -18,8 +18,12 @@ class="wrapper"
 //上拉下拉是否开启
 :pullUpDown="true"
 //开启上拉,可以做上拉加载数据 
+//1.请求数据前 this.$refs.wrapper.pullupstatus(2)
+//2.请求数据后 this.$refs.wrapper.pullupstatus(1)
 @pullUp="pullUp"
 //开启下拉,可以做下拉刷新数据 
+//1.请求数据前 this.$refs.wrapper.pulldownstatus(2)
+//2.请求数据后 this.$refs.wrapper.pulldownstatus(1)
 @pullDown="pullDown"
 //滚动到指定位置(暂无)
 @scrollToElement="scrollToElement" 
