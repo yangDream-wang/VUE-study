@@ -11,7 +11,7 @@ class="wrapper"
 :probeType="3" 
 //true:使用回顶部功能,false:不使用
 :toTop="true" 
-//true:开启滚动监听(toTop,pullUpDown均使用),
+//true:开启滚动监听(toTop,pullUpDown事件均使用),
 :listenScroll="true" 
 //监听滚动事件
 @scroll="listenScroll" 

@@ -10,9 +10,9 @@
   修改时间：
 -->
 <template>
-  <div class='GoodsItem'>
+  <div class='GoodsItem' @click.stop="gotoDetail(data.id)">
     <div class="goodsitem">
-        <img :src="data.picUrl" alt="">
+        <img v-lazy="data.picUrl" alt="">
         <div class="goodsbottom">
           <div class="goodsbottom-title">{{data.name}}</div>
           <div class="goodsbottom-content">
@@ -44,7 +44,12 @@ export default {
   computed: {/**计算属性*/ },
   watch: {/**监听data数据变化*/ },
   methods: {/**所有方法*/
-
+    gotoDetail(id){
+      this.$router.push({
+        path:'/detail',
+        query:{ids:id}
+      })
+    },
   },
   created() {/**创建组件时执行(加载完成之前执行可以调用this,主要预处理数据)*/
 

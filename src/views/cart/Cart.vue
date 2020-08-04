@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div id='cart'>购物车</div>
+  <div id='cart'>购物车{{ids}}</div>
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
   data() {
   //这里存放数据
     return {
-
+      ids:null
     };
   },
   //监听属性 类似于data概念
@@ -31,7 +31,8 @@ export default {
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-
+    // console.log(this.$store.state);
+    this.ids = this.$store.state.collections
   },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前

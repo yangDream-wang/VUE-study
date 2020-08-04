@@ -13,7 +13,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name:'navbar'
+};
 </script>
 
 <style scope>

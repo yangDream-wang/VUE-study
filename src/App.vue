@@ -15,7 +15,7 @@
       <tabbaritem path="/cart" activecolor="red">
         <img slot="tabbar-icon" src="~assets/img/tabbar/shopcart.svg" />
         <img slot="tabbar-icon-active" src="~assets/img/tabbar/shopcart_active.svg" />
-        <div slot="tabbar-text">购物车</div>
+        <div slot="tabbar-text">收藏</div>
       </tabbaritem>
       <tabbaritem path="/profile" activecolor="red">
         <img slot="tabbar-icon" src="~assets/img/tabbar/profile.svg" />

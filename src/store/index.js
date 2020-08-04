@@ -8,7 +8,8 @@ import modleA from "./modules/moduleA"
 
 const store = new Vuex.Store({
   state:{
-    num:10
+    num: 10,
+    collections: []
   },
   /**方法 */
   mutations,

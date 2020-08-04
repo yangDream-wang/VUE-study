@@ -1,12 +1,16 @@
 <!--  -->
 <template>
   <div id="home" class="home">
-    <navbar class="navbar"><div slot="center">首页</div></navbar>
-    <scroll ref="wrapper" class="wrapper" :data="recommendData[comTabIndex].list" :probeType="3" :toTop="true" :listenScroll="true" @scroll="listenScroll" :pullUpDown="true" @pullUp="pullUp" @pullDown="pullDown" @scrollToElement="scrollToElement">
-      <home-swiper :bannerList="bannerList"></home-swiper>
-      <tab-controller class="tab-controller" :titles="['推荐歌单','推荐MV','推荐新音乐']" @tabchange="tabchange"></tab-controller>
-      <div class="goodsCom"><goods :data="recommendData[comTabIndex].list"></goods></div>
-    </scroll>
+    
+      <navbar class="navbar"><div slot="center">首页</div></navbar>
+      <scroll ref="wrapper" class="wrapper" :data="recommendData[comTabIndex].list" :probeType="3" :toTop="true" :listenScroll="true" @scroll="listenScroll" :pullUpDown="true" @pullUp="pullUp" @pullDown="pullDown" @scrollToElement="scrollToElement">
+          <!-- <keep-alive> -->
+          <home-swiper :bannerList="bannerList" @swiperImgLoad="swiperImgLoad"></home-swiper>
+          <tab-controller ref='tabController' class="tab-controller" :titles="['推荐歌单','推荐MV','推荐新音乐']" @tabchange="tabchange" ></tab-controller>
+          
+            <div class="goodsCom"><goods :data="recommendData[comTabIndex].list"></goods></div>
+          <!-- </keep-alive> -->
+      </scroll>
   </div>
 </template>
 
@@ -40,6 +44,8 @@ export default {
         new: { page: 1, list: [] },
       },
       tabIndex:0,
+      /**导航栏距顶部多少单位 */
+      tabOffSetTop:0,
     };
   },
   //监听属性 类似于data概念
@@ -60,13 +66,21 @@ export default {
   },
   //方法集合
   methods: {
+    /**轮播图加载完毕后 */
+    swiperImgLoad(){
+      /**获取某个元素据顶部多少单位 */
+      this.tabOffSetTop = this.$refs.tabController.$el.offsetTop
+    },
     scrollToElement(){
       console.log(`到达指定地方`);
       this.$refs.wrapper.scrollToElement(this.$refs.tab,200)
     },
     /**监听滚动位置 */
     listenScroll(e){
-      // console.log(e);
+      // if(e.y){}
+      if(-e.y >= this.tabOffSetTop){
+        console.log(`到了`);
+      }
     },
     /**加载更多 */
     pullUp(){
@@ -150,7 +164,12 @@ export default {
   updated() {}, //生命周期 - 更新之后
   beforeDestroy() {}, //生命周期 - 销毁之前
   destroyed() {}, //生命周期 - 销毁完成
-  activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
+  deactivated(){
+    console.log(`keep销毁之后`);
+  },
+  activated() {
+    console.log(`keep销毁之前`);
+  }, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
 <style scoped>

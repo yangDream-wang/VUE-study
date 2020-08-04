@@ -9,14 +9,11 @@
 <script>
 import {Swiper,SwiperItem} from 'components/common/swiper'
 export default {
-  name:'HomeSwiper',
+  name:'DetailSwiper',
   props:{
     bannerList: {
       type:Array,
-      default:[]
-      // default(){
-      //   return []
-      // }
+      default:()=>[]
     }
   },
   data(){
